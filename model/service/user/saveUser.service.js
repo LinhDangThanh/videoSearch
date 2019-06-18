@@ -1,10 +1,10 @@
 const schema = require('../../schema');
 
 /**
- * Find user by username
+ * create user
  * @param data
  * @param callback
  */
 module.exports = (data, callback) => {
-  schema.user.model.findOne({username: data.username}, callback);
+  schema.user.model.create(data, callback);
 };

@@ -5,7 +5,8 @@ const express = require('express')
 const app = express();
 const connection = mongoose.connection;
 
-const config = require('./config');
+const config = require('./config')
+  , controller = require('./controller');
 
 const PORT = process.env.PORT || config.app.server.port;
 const MONGO_URL = process.env['MONGODB_URI'] ? process.env['MONGODB_URI']
@@ -18,6 +19,9 @@ connection.on('error', (error) => {
 connection.once('open', () => {
   app.listen(PORT, () => {
     app.use(bodyParser.json());
+
+    // register controller
+    controller(app);
 
     console.log('App listening on port: ', PORT);
   });
