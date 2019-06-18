@@ -1,4 +1,5 @@
 module.exports = {
   app: require('./app.config'),
-  db: require('./db.config')
+  db: require('./db.config'),
+  youtube: require('./youtube.config')
 };
