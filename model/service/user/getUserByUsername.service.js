@@ -6,5 +6,5 @@ const schema = require('../../schema');
  * @param callback
  */
 module.exports = (data, callback) => {
-  schema.user.model.findOne({username: data.username}, callback);
+  schema.user.model.findOne({username: data.username}).lean().exec(callback);
 };

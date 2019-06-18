@@ -10,4 +10,9 @@ router.post('/',
   middleware.checkIsExistingUser,
   require('./registerUser.controller'));
 
+router.post('/login',
+  middleware.checkUsernameParam,
+  middleware.checkPasswordParam,
+  require('./login.controller'));
+
 module.exports = router;
