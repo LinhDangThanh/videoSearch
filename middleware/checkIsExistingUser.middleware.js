@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
     }
 
     if (_.isEmpty(result) === false) {
-      return res.send('User is existing')
+      return res.send('User is existing');
     }
 
     next();

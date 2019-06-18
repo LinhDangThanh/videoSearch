@@ -1,4 +1,4 @@
-const utitily = require('../../utility')
+const utility = require('../../utility')
   , service = require('../../model/service');
 /**
  * Handle register request. Hash password before saving data
@@ -11,7 +11,7 @@ module.exports = (req, res) => {
     fullname: req.body.fullname
   };
 
-  utitily.bcrypt.genHashAsync(10, req.body.password, (error, hashedPass) => {
+  utility.bcrypt.genHashAsync(10, req.body.password, (error, hashedPass) => {
     if (error) {
       return res.status(500).send('Internal error');
     }

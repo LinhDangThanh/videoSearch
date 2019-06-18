@@ -10,5 +10,7 @@ module.exports = {
   db: {
     host: '127.0.0.1:27017',
     database: 'videoSearch'
-  }
+  },
+
+  secret: '@videosearch#'
 };
