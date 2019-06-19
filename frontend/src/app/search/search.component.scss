@@ -1,0 +1,17 @@
+.login-container {
+  border-width: 1px;
+  border-style: solid;
+  border-color: darkgray;
+
+  .warning-input {
+    border-color: red;
+  }
+
+  .header-group {
+    display: inline-block;
+    position: absolute;
+    top: -13px;
+    background-color: white;
+    padding: 0px 5px;
+  }
+}

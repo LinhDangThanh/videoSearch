@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {StorageService} from "./storage.service";
-
-export function tokenGetter() {
-  return localStorage.getItem('token');
-}
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 const STORE_TOKEN = 'store_token';
+
+export function tokenGetter() {
+  return localStorage.getItem(STORE_TOKEN);
+}
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,15 @@ export class TokenService {
     this.storageService.remove(STORE_TOKEN);
   }
 
+  isExpired(): boolean {
+    const helper = new JwtHelperService();
 
+    const token = this.storageService.get(STORE_TOKEN);
+
+    if (token) {
+      return helper.isTokenExpired(token);
+    }
+
+    return true;
+  }
 }

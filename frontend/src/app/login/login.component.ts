@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
   isLoading: boolean;
   activePage: string;
 
-  constructor(private userService: UserService, private tokenService: TokenService) {
+  constructor(private userService: UserService, private tokenService: TokenService,
+              private router: Router) {
     this.formData = {};
     this.errorText = '';
     this.isLoading = false;
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit {
       // store token
       this.tokenService.setToken(res.token);
 
-      // this.route.navigateByUrl('/search');
+      this.router.navigateByUrl('/');
 
     }, (error: HttpErrorResponse) => {
 
