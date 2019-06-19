@@ -6,6 +6,7 @@ const app = express();
 const connection = mongoose.connection;
 
 const config = require('./config')
+  , middleware = require('./middleware')
   , controller = require('./controller');
 
 const PORT = process.env.PORT || config.app.server.port;
@@ -19,6 +20,8 @@ connection.on('error', (error) => {
 connection.once('open', () => {
   app.listen(PORT, () => {
     app.use(bodyParser.json());
+
+    app.use(middleware.cors);
 
     // register controller
     controller(app);
