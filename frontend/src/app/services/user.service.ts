@@ -18,4 +18,9 @@ export class UserService {
     const url = `${this.baseEndpoint}/user/login`;
     return this.http.post(url, data);
   }
+
+  register(data: any): Observable<any> {
+    const url = `${this.baseEndpoint}/user`;
+    return this.http.post(url, data);
+  }
 }

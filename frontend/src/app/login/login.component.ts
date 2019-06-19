@@ -13,12 +13,14 @@ import {finalize, tap} from "rxjs/operators";
 export class LoginComponent implements OnInit {
   formData: any;
   errorText: string;
-  isLoading: boolean
+  isLoading: boolean;
+  activePage: string;
 
   constructor(private userService: UserService, private tokenService: TokenService) {
     this.formData = {};
     this.errorText = '';
     this.isLoading = false;
+    this.activePage = 'login';
   }
 
   ngOnInit() {
@@ -48,6 +50,36 @@ export class LoginComponent implements OnInit {
       if (error && error.statusText) {
         this.errorText = error.statusText
       }
-    })
+    });
+  }
+
+  onActivePage(page) {
+    this.formData = {};
+    this.activePage = page;
+  }
+
+  register() {
+    this.isLoading = true;
+    this.errorText = '';
+
+    this.userService.register(this.formData).pipe(finalize(
+      () => {
+        this.isLoading = false;
+      }
+    )).subscribe(res => {
+      console.log('res: ', res);
+      if (res.statusText) {
+        return this.errorText = res.statusText;
+      }
+
+      this.formData = {};
+      this.activePage = 'login';
+
+    }, (error: HttpErrorResponse) => {
+
+      if (error && error.statusText) {
+        this.errorText = error.statusText
+      }
+    });
   }
 }
