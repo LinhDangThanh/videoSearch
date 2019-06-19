@@ -16,11 +16,15 @@ module.exports = (req, res, next) => {
 
   service.user.getUserByUsername(data, (error, result) => {
     if (error) {
-      return res.status(500).send('Internal error');
+      return res.status(200).send({
+        statusText: 'Internal error'
+      });
     }
 
     if (_.isEmpty(result) === false) {
-      return res.send('User is existing');
+      return res.status(200).send({
+        statusText: 'User is existing'
+      });
     }
 
     next();

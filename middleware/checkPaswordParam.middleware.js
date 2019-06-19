@@ -9,7 +9,9 @@ const _ = require('lodash');
  */
 module.exports = (req, res, next) => {
   if(_.isEmpty(req.body) || _.isEmpty(req.body.password)) {
-    return res.send('Password is required');
+    return res.status(200).send({
+      statusText: 'Password is required'
+    });
   }
 
   next();

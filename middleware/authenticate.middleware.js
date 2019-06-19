@@ -11,12 +11,16 @@ module.exports = (req, res, next) => {
 
   utility.jwt.verifyAsync(token, function(error, data) {
     if(error || _.isEmpty(data)) {
-      return res.send('Authentication is required');
+      return res.status(200).send({
+        statusText: 'Authorization is required'
+      });
     }
 
     service.user.getUserById({id: data._id}, function(error, result) {
       if(error || _.isEmpty(result)) {
-        return res.send('Authentication is required');
+        return res.status(200).send({
+          statusText: 'Authorization is required'
+        });
       }
 
       _.unset(result, 'password');

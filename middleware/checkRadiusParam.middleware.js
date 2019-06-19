@@ -9,7 +9,9 @@ const _ = require('lodash');
  */
 module.exports = (req, res, next) => {
   if(_.isEmpty(req.query) || _.isEmpty(req.query.radius)) {
-    return res.send('radius is required');
+    return res.status(200).send({
+      statusText: 'radius is required'
+    });
   }
 
   next();

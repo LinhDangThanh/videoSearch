@@ -9,7 +9,9 @@ const _ = require('lodash');
  */
 module.exports = (req, res, next) => {
   if(_.isEmpty(req.query) || _.isEmpty(req.query.latitude)) {
-    return res.send('latitude is required');
+    return res.status(200).send({
+      statusText: 'latitude is required'
+    });
   }
 
   next();

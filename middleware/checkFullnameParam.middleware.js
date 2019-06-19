@@ -9,7 +9,9 @@ const _ = require('lodash');
  */
 module.exports = (req, res, next) => {
   if(_.isEmpty(req.body) || _.isEmpty(req.body.fullname)) {
-    return res.send('Fullname is required');
+    return res.status(200).send({
+      statusText: 'Fullname is required'
+    });
   }
 
   next();

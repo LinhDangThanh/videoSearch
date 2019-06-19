@@ -15,35 +15,44 @@ module.exports = (req, res) => {
 
   service.user.getUserByUsername(data, (error, result) => {
     if (error) {
-      return res.status(500).send('Internal error');
+      return res.status(200).send({
+        statusText: 'Internal error'
+      });
     }
 
     if (_.isEmpty(result)) {
-      return res.send('Wrong Username/password');
+      return res.status(200).send({
+        statusText: 'Wrong Username/password'
+      });
     }
 
     // compare password and stored hash-password
     utility.bcrypt.compareHashAsync(req.body.password, result.password, (error, compared) => {
       if (error) {
-        return res.status(500).send('Internal error');
+        return res.status(200).send({
+          statusText: 'Internal error'
+        });
       }
 
       if (compared === false) {
-        return res.send('Wrong Username/password');
+        return res.status(200).send({
+          statusText: 'Wrong Username/password'
+        });
       }
 
       // create token
       utility.jwt.signAsync({_id: result._id}, (error, token) => {
         if (error || _.isEmpty(token)) {
-          return res.status(500).send('Internal error');
+          return res.status(200).send({
+            statusText: 'Internal error'
+          });
         }
 
         delete result.password;
         res.send({
-          data: {
-            token: token,
-            user: result
-          }
+          statusText: '',
+          token: token,
+          user: result,
         });
 
       });
