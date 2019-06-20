@@ -1,6 +1,5 @@
-<div *ngIf="activePage==='login'" class="row pt-5" ><!--login-->
-  <div class="col-md-4"></div>
-  <div class="col-md-4 login-container">
+<div *ngIf="activePage==='login'" class="row pt-5 m-2" ><!--login-->
+  <div class="offset-md-4 col-md-4 login-container">
     <div class="header-group">Login</div>
     <div class="p-3">
       <form novalidate>
@@ -30,7 +29,7 @@
             <div *ngIf="!isLoading" >
               <button class="btn btn-sm btn-success" (click)="login()"
                       [disabled]="username.invalid || formData.invalid">Login</button>
-              <a class="ml-1" href="javascript:void(0);" (click)="onActivePage('register')">Register</a>
+              <a class="ml-3" href="javascript:void(0);" (click)="onActivePage('register')">Register</a>
             </div>
 
             <div *ngIf="isLoading" class="spinner-border text-success" role="status">
@@ -43,12 +42,10 @@
     </div>
 
   </div>
-  <div class="col-md-4"></div>
 </div><!--end login-->
 
-<div *ngIf="activePage==='register'" class="row pt-5"><!--register-->
-  <div class="col-md-4"></div>
-  <div class="col-md-4 login-container">
+<div *ngIf="activePage==='register'" class="row pt-5 m-2"><!--register-->
+  <div class="offset-md-4 col-md-4 login-container">
     <div class="header-group">Register</div>
     <div class="p-3">
       <form novalidate>
@@ -87,6 +84,7 @@
           <div class="col-md-9">
             <button *ngIf="!isLoading" class="btn btn-sm btn-success" (click)="register()"
                     [disabled]="username.invalid || formData.invalid || fullname.invalid">Register</button>
+            <a class="ml-3" href="javascript:void(0);" (click)="onActivePage('login')">Cancel</a>
             <div *ngIf="isLoading" class="spinner-border text-success" role="status">
               <span class="sr-only">Loading...</span>
             </div>
@@ -97,5 +95,4 @@
     </div>
 
   </div>
-  <div class="col-md-4"></div>
 </div><!--end register-->
