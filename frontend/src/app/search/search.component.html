@@ -1,62 +1,60 @@
-<div class="row pt-5" ><!--search form-->
-  <div class="col-md-4"></div>
-  <div class="col-md-4 login-container">
-    <div class="header-group">Search</div>
-    <div class="p-3">
-      <form novalidate>
-        <div class="form-group">
-          <div>
-            <input class="form-control" placeholder="Latitude" name="latitude" #latitude="ngModel"
-                   [(ngModel)]="formData.latitude"
-                   [ngClass]="{'warning-input': latitude.invalid && (latitude.dirty || latitude.touched)}" required>
-
-          </div>
-        </div>
-
-        <div class="form-group ">
-          <div >
-            <input class="form-control" placeholder="Longitude" name="longitude" #longitude="ngModel"
-                   [(ngModel)]="formData.longitude"
-                   [ngClass]="{'warning-input': longitude.invalid && (longitude.dirty || longitude.touched)}" required>
-
-          </div>
+<div><!--search form-->
+  <div >
+    <form novalidate>
+      <div class="row">
+        <div class="col-3">
+          <input class="form-control" placeholder="Latitude" name="latitude" #latitude="ngModel"
+                 [(ngModel)]="formData.latitude"
+                 [ngClass]="{'warning-input': latitude.invalid && (latitude.dirty || latitude.touched)}" required>
 
         </div>
-        <div class="form-group ">
-          <div >
-            <input class="form-control" placeholder="Radius(km)" name="radius" #radius="ngModel"
-                   [(ngModel)]="formData.radius"
-                   [ngClass]="{'warning-input': radius.invalid && (radius.dirty || radius.touched)}" required>
-
-          </div>
+        <div class="col-3">
+          <input class="form-control" placeholder="Longitude" name="longitude" #longitude="ngModel"
+                 [(ngModel)]="formData.longitude"
+                 [ngClass]="{'warning-input': longitude.invalid && (longitude.dirty || longitude.touched)}" required>
 
         </div>
-        <div class="form-group row">
-          <div class="col-md-3"></div>
-          <div class="col-md-9">
-            <div *ngIf="!isLoading" >
-              <button class="btn btn-sm btn-success" (click)="search()"
-                      [disabled]="latitude.invalid || longitude.invalid || radius.invalid">Search</button>
-            </div>
+        <div class="col-3">
+          <input class="form-control" placeholder="Radius(km)" name="radius" #radius="ngModel"
+                 [(ngModel)]="formData.radius"
+                 [ngClass]="{'warning-input': radius.invalid && (radius.dirty || radius.touched)}" required>
 
-            <div *ngIf="isLoading" class="spinner-border text-success" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
+        </div>
+        <div class="col-3">
+          <div *ngIf="!isLoading" >
+            <button class="btn btn-sm btn-success" (click)="search()"
+                    [disabled]="latitude.invalid || longitude.invalid || radius.invalid || isLoading">Search</button>
           </div>
         </div>
-        <div *ngIf="errorText" class="text-danger">{{errorText}}</div>
-      </form>
-    </div>
+      </div>
+      <div *ngIf="errorText" class="text-danger">{{errorText}}</div>
 
+    </form>
   </div>
-  <div class="col-md-4"></div>
+  <div><!--video list-->
+    <div class="row" *ngIf="videoData.items">
+      <div class="col-md-2" *ngFor="let item of videoData.items">
+        <img src="{{item.snippet.thumbnails.default.url}}">
+        <div>{{item.snippet.title}}</div>
+      </div>
+
+    </div>
+    <div *ngIf="videoData.pageInfo">
+      <nav aria-label="Page navigation example">
+
+        <ul class="pagination">
+          <li class="page-item" [ngClass]="{'disabled': isLoading || !videoData.prevPageToken}">
+            <a class="page-link" href="#" (click)="getPage('prev', videoData.prevPageToken)">Previous</a>
+          </li>
+
+          <li class="page-item">{{pageIndex * videoData.pageInfo.resultsPerPage + 1}}  - {{pageIndex * videoData.pageInfo.resultsPerPage + videoData.items.length}} of {{videoData.pageInfo.totalResults}}</li>
+
+          <li class="page-item" [ngClass]="{'disabled': isLoading || !videoData.nextPageToken}">
+            <a class="page-link" href="#" (click)="getPage('next', videoData.nextPageToken)">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div><!--video list-->
 </div><!--end search form-->
-<div><!--video list-->
-  <div class="row" *ngIf="videoData.items">
-    <div class="col-md-1" *ngFor="let item of videoData.items">
-      <img src="{{item.snippet.thumbnails.default.url}}">
-      <div>{{item.snippet.title}}</div>
-    </div>
 
-  </div>
-</div><!--video list-->

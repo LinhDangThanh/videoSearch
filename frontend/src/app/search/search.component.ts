@@ -13,12 +13,14 @@ export class SearchComponent implements OnInit {
   isLoading: boolean;
   errorText: string;
   videoData: any;
+  pageIndex: number;
 
   constructor(private videoService: VideoService) {
     this.formData = {};
     this.isLoading = false;
     this.errorText = '';
     this.videoData = {};
+    this.pageIndex = 0;
   }
 
   ngOnInit() {
@@ -28,13 +30,13 @@ export class SearchComponent implements OnInit {
     this.isLoading = true;
     this.videoData = {};
     this.errorText = '';
+    this.pageIndex = 0;
 
     this.videoService.search(this.formData).pipe(
       finalize(() => {
         this.isLoading = false;
       })
     ).subscribe(res => {
-      console.log(`res: ${res}`);
 
       if (res.data) {
         this.videoData = res.data;
@@ -51,4 +53,30 @@ export class SearchComponent implements OnInit {
     })
   }
 
+
+  getPage(toPage: string, pageToken: string) {
+    this.isLoading = true;
+
+    this.videoService.search({...this.formData, pageToken}).pipe(
+      finalize(() => {
+        this.isLoading = false;
+      })
+    ).subscribe(res => {
+
+      if (res.data) {
+        this.videoData = res.data;
+      }
+
+      this.pageIndex = toPage === 'prev' ? this.pageIndex - 1 : this.pageIndex + 1;
+
+      if (res.errors) {
+        this.errorText = res.errors[0].message;
+      }
+    }, (error: HttpErrorResponse) => {
+      console.log(`res: ${error}`);
+      if (error && error.statusText) {
+        this.errorText = error.statusText
+      }
+    })
+  }
 }

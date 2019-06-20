@@ -15,7 +15,12 @@ export class VideoService {
   }
 
   search(data: any): Observable<any> {
-    const url = `${this.baseEndpoint}/videos?latitude=${data.latitude}&longitude=${data.longitude}&radius=${data.radius}`;
+    let url = `${this.baseEndpoint}/videos?latitude=${data.latitude}&longitude=${data.longitude}&radius=${data.radius}`;
+
+    if (data.pageToken) {
+      url = `${url}&pageToken=${data.pageToken}`;
+    }
+
     return this.http.get(url);
   }
 }

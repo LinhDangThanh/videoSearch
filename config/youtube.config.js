@@ -5,7 +5,7 @@
 
 module.exports = {
   version: 'v3',
-  apiKey: 'AIzaSyBaUH7J8tlXxH-QOpWkBGRRVUZ3owd1iPE',
+  apiKey: 'AIzaSyDwMcCfqxq5YDuWG89Y6EnRtckfbEdTAF8',
 
   part: 'snippet',
   q: 'surfing',

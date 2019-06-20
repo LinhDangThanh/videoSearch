@@ -11,19 +11,34 @@ const youtube = google.youtube({
   auth: config.youtube.apiKey
 });
 
+let cacheData = null;
+
 module.exports = (req, res) => {
 
-  youtube.search.list({
+  let searchData = {
     part: config.youtube.part,
     q: config.youtube.q,
     type: config.youtube.type,
     maxResults: config.youtube.maxResults,
     location: `${req.query.latitude},${req.query.longitude}`,
     locationRadius: `${req.query.radius}${config.youtube.radiusUnit}`
-  }, (error, data) => {
+  };
+
+  if (req.query.pageToken) {
+    searchData.pageToken = req.query.pageToken;
+  }
+
+  if (cacheData) {
+    console.log('from cache data');
+    return res.send(cacheData);
+  }
+
+  youtube.search.list(searchData, (error, data) => {
     if (error) {
       return res.send(error);
     }
+
+    cacheData = data;
 
     return res.send(data);
   })
