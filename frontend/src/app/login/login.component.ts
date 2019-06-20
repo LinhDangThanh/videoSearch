@@ -44,6 +44,9 @@ export class LoginComponent implements OnInit {
       // store token
       this.tokenService.setToken(res.token);
 
+      // store use
+      this.userService.setUser(res.user);
+
       this.router.navigateByUrl('/');
 
     }, (error: HttpErrorResponse) => {
