@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
   onActivePage(page) {
     this.formData = {};
     this.activePage = page;
+    this.errorText = '';
   }
 
   register() {
