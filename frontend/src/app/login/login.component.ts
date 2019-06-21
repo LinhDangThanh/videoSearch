@@ -4,6 +4,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {TokenService} from "../services/token.service";
 import {Router} from "@angular/router";
 import {finalize, tap} from "rxjs/operators";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   activePage: string;
 
   constructor(private userService: UserService, private tokenService: TokenService,
-              private router: Router) {
+              private router: Router, private titleService: Title) {
     this.formData = {};
     this.errorText = '';
     this.isLoading = false;
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Login - Video Search');
   }
 
   login() {

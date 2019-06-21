@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule, Title} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt'
 
@@ -31,7 +31,7 @@ import {tokenGetter} from "./services/token.service";
     }),
     AppRoutingModule
   ],
-  providers: [],
+  providers: [Title],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {VideoService} from "../services/video.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {finalize} from "rxjs/operators";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-search',
@@ -16,7 +17,7 @@ export class SearchComponent implements OnInit {
   videoData: any;
   pageIndex: number;
 
-  constructor(private videoService: VideoService) {
+  constructor(private videoService: VideoService, private titleService: Title) {
     this.formData = {};
     this.isLoading = false;
     this.errorText = '';
@@ -25,6 +26,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Search - Video Search');
   }
 
   search() {
