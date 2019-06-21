@@ -4,7 +4,6 @@ const router = express.Router();
 const middleware = require('../../middleware');
 
 router.get('/',
-  middleware.checkKeywordParam,
   middleware.checkLatitudeParam,
   middleware.checkLongitudeParam,
   middleware.checkRadiusParam,
