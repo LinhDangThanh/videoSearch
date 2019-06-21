@@ -7,7 +7,8 @@ module.exports = {
   version: 'v3',
   apiKey: 'AIzaSyDwMcCfqxq5YDuWG89Y6EnRtckfbEdTAF8',
 
-  part: 'snippet',
+  searchPart: 'id',
+  listPart: 'snippet, recordingDetails',
   type: 'video',
   maxResults: 5,
   radiusUnit: 'km'

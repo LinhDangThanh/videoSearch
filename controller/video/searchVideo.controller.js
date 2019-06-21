@@ -16,7 +16,7 @@ let cacheData = null;
 module.exports = (req, res) => {
 
   let searchData = {
-    part: config.youtube.part,
+    part: config.youtube.searchPart,
     type: config.youtube.type,
     maxResults: config.youtube.maxResults,
     location: `${req.query.latitude},${req.query.longitude}`,
@@ -32,13 +32,46 @@ module.exports = (req, res) => {
     return res.send(cacheData);
   }
 
-  youtube.search.list(searchData, (error, data) => {
+  youtube.search.list(searchData, (error, searchResp) => {
     if (error) {
       return res.send(error);
     }
 
-    cacheData = data;
+    let ids = [];
+    if (searchResp && searchResp.data && searchResp.data.items && searchResp.data.items.length) {
+      searchResp.data.items.forEach(item => {
+        if (item.id && item.id.videoId) {
+          ids.push(item.id.videoId);
+        }
+      });
 
-    return res.send(data);
-  })
+      if (ids.length === 0) {
+        return res.send(searchResp);
+      }
+
+      const listData = {
+        part: config.youtube.listPart,
+        id: ids.join(',')
+      };
+
+      youtube.videos.list(listData, (error, listResp) => {
+        if (error) {
+          return res.send(error);
+        }
+
+        let resp = {...searchResp};
+
+        if (listResp && listResp.data && listResp.data.items) {
+          resp.data.items = listResp.data.items;
+        }
+
+        cacheData = resp;
+
+        return res.send(resp);
+      });
+
+    } else {
+      return res.send(searchResp);
+    }
+  });
 };
