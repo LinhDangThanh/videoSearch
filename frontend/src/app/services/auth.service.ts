@@ -18,8 +18,6 @@ export class AuthService implements CanActivate{
       this.router.navigateByUrl('/login');
     }
 
-    console.log(`isLogged: ${isLogged}`);
-
     return isLogged;
   }
 }

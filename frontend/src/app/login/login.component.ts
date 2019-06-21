@@ -26,6 +26,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.userService.isLogged()) {
+      return this.router.navigateByUrl('/');
+    }
+
     this.titleService.setTitle('Login - Video Search');
   }
 
@@ -38,7 +42,6 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       }
     )).subscribe(res => {
-      console.log('res: ', res);
       if (res.statusText) {
         return this.errorText = res.statusText;
       }
@@ -74,7 +77,6 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       }
     )).subscribe(res => {
-      console.log('res: ', res);
       if (res.statusText) {
         return this.errorText = res.statusText;
       }
