@@ -10,6 +10,7 @@ import {finalize} from "rxjs/operators";
 })
 export class SearchComponent implements OnInit {
   formData: any;
+  searchFormData: any;
   isLoading: boolean;
   errorText: string;
   videoData: any;
@@ -31,6 +32,8 @@ export class SearchComponent implements OnInit {
     this.videoData = {};
     this.errorText = '';
     this.pageIndex = 0;
+
+    this.searchFormData = {...this.formData};
 
     this.videoService.search(this.formData).pipe(
       finalize(() => {
@@ -56,6 +59,8 @@ export class SearchComponent implements OnInit {
 
   getPage(toPage: string, pageToken: string) {
     this.isLoading = true;
+
+    this.formData = {...this.searchFormData};
 
     this.videoService.search({...this.formData, pageToken}).pipe(
       finalize(() => {
