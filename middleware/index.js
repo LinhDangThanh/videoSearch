@@ -6,6 +6,7 @@ module.exports = {
   checkLatitudeParam: require('./checkLatitudeParam.middleware'),
   checkLongitudeParam: require('./checkLongitudeParam.middleware'),
   checkRadiusParam: require('./checkRadiusParam.middleware'),
+  checkKeywordParam: require('./checkKeywordParam.middleware'),
   checkAuthorizationHeader: require('./checkAuthorizationHeader.middleware'),
   authenticate: require('./authenticate.middleware'),
   cors: require('./cors.middleware')
