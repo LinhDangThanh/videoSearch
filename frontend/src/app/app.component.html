@@ -4,9 +4,9 @@
   <div id="navbarNavDropdown" *ngIf="user">
     <ul class="navbar-nav">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="javascript:void(0);" (click)="toggleDropdown = !toggleDropdown" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn nav-link dropdown-toggle" href="javascript:void(0);" (click)="toggleDropdown = !toggleDropdown" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{user.fullname}}
-        </a>
+        </button>
         <div class="dropdown-menu" [ngClass]="{'show': toggleDropdown}" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="javascript:void(0);" (click)="logout()">Logout</a>
         </div>

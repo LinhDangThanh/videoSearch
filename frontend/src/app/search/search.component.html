@@ -1,7 +1,41 @@
 <div class="search-container m-3"><!--search form-->
   <div >
     <form novalidate>
-      <div class="form-group row">
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <input class="form-control" placeholder="Search videos" name="keyword" #keyword="ngModel"
+                 [(ngModel)]="formData.keyword"
+                 [ngClass]="{'warning-input': keyword.invalid && (keyword.dirty || keyword.touched)}" required>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mt-1">
+          <input class="form-control" placeholder="Latitude" name="latitude" #latitude="ngModel"
+                 [(ngModel)]="formData.latitude"
+                 [ngClass]="{'warning-input': latitude.invalid && (latitude.dirty || latitude.touched)}" required>
+
+        </div>
+        <div class="col-sm-4 mt-1">
+          <input class="form-control" placeholder="Longitude" name="longitude" #longitude="ngModel"
+                 [(ngModel)]="formData.longitude"
+                 [ngClass]="{'warning-input': longitude.invalid && (longitude.dirty || longitude.touched)}" required>
+
+        </div>
+        <div class="col-sm-4 mt-1">
+          <input class="form-control" placeholder="Radius(km)" name="radius" #radius="ngModel"
+                 [(ngModel)]="formData.radius"
+                 [ngClass]="{'warning-input': radius.invalid && (radius.dirty || radius.touched)}" required>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-2">
+          <button class="btn btn-sm btn-success form-control" (click)="search()"
+                    [disabled]="keyword.invalid || latitude.invalid || longitude.invalid || radius.invalid || isLoading">Search</button>
+        </div>
+      </div>
+      <!--<div class="form-group row">
         <div class="col-sm-3 mt-1">
           <input class="form-control" placeholder="Latitude" name="latitude" #latitude="ngModel"
                  [(ngModel)]="formData.latitude"
@@ -27,7 +61,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="errorText" class="text-danger">{{errorText}}</div>
+      <div *ngIf="errorText" class="text-danger">{{errorText}}</div>-->
 
     </form>
   </div>
