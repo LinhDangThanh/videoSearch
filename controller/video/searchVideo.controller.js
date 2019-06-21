@@ -17,7 +17,6 @@ module.exports = (req, res) => {
 
   let searchData = {
     part: config.youtube.part,
-    q: config.youtube.q,
     type: config.youtube.type,
     maxResults: config.youtube.maxResults,
     location: `${req.query.latitude},${req.query.longitude}`,
