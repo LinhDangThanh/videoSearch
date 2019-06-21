@@ -84,4 +84,16 @@ export class SearchComponent implements OnInit {
       }
     })
   }
+
+  pageInfo() {
+    let start = this.pageIndex * this.videoData.pageInfo.resultsPerPage;
+
+    if (this.videoData.items.length > 0) {
+      start += 1;
+    }
+
+    let end = this.pageIndex * this.videoData.pageInfo.resultsPerPage + this.videoData.items.length;
+
+    return `${start} - ${end} of ${this.videoData.pageInfo.totalResults}`;
+  }
 }

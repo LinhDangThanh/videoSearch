@@ -2,25 +2,25 @@
   <div >
     <form novalidate>
       <div class="form-group row">
-        <div class="col-3">
+        <div class="col-sm-3 mt-1">
           <input class="form-control" placeholder="Latitude" name="latitude" #latitude="ngModel"
                  [(ngModel)]="formData.latitude"
                  [ngClass]="{'warning-input': latitude.invalid && (latitude.dirty || latitude.touched)}" required>
 
         </div>
-        <div class="col-3">
+        <div class="col-sm-3 mt-1">
           <input class="form-control" placeholder="Longitude" name="longitude" #longitude="ngModel"
                  [(ngModel)]="formData.longitude"
                  [ngClass]="{'warning-input': longitude.invalid && (longitude.dirty || longitude.touched)}" required>
 
         </div>
-        <div class="col-3">
+        <div class="col-sm-3 mt-1">
           <input class="form-control" placeholder="Radius(km)" name="radius" #radius="ngModel"
                  [(ngModel)]="formData.radius"
                  [ngClass]="{'warning-input': radius.invalid && (radius.dirty || radius.touched)}" required>
 
         </div>
-        <div class="col-3">
+        <div class="col-sm-3 mt-1">
           <div>
             <button class="btn btn-sm btn-success form-control" (click)="search()"
                     [disabled]="latitude.invalid || longitude.invalid || radius.invalid || isLoading">Search</button>
@@ -31,13 +31,16 @@
 
     </form>
   </div>
-  <div class="video-detail mt-3"><!--video list-->
-    <div class="row" *ngIf="videoData.items">
-      <div class="col-3 mt-2" *ngFor="let item of videoData.items">
+  <div class="video-detail mt-3" *ngIf="videoData.items"><!--video list-->
+    <div class="row">
+      <div class="col-sm-3 mt-2" *ngFor="let item of videoData.items">
         <img class="rounded mx-auto d-block img-fluid" src="{{item.snippet.thumbnails.medium.url}}">
         <div class="video-title" >{{item.snippet.title}}</div>
       </div>
 
+    </div>
+    <div *ngIf="videoData.items.length === 0" class="font-italic not-found-videos">
+      Videos not found
     </div>
     <div *ngIf="videoData.pageInfo" class="mt-3">
       <nav aria-label="Page navigation">
@@ -47,7 +50,7 @@
             <a class="page-link" href="#" (click)="getPage('prev', videoData.prevPageToken)">Previous</a>
           </li>
 
-          <li class="page-item pt-2 ml-2 mr-2">{{pageIndex * videoData.pageInfo.resultsPerPage + 1}}  - {{pageIndex * videoData.pageInfo.resultsPerPage + videoData.items.length}} of {{videoData.pageInfo.totalResults}}</li>
+          <li class="page-item pt-2 ml-2 mr-2">{{pageInfo()}}</li>
 
           <li class="page-item" [ngClass]="{'disabled': isLoading || !videoData.nextPageToken}">
             <a class="page-link" href="#" (click)="getPage('next', videoData.nextPageToken)">Next</a>
