@@ -13,18 +13,21 @@
         <div class="col-sm-4 mt-1">
           <input class="form-control" placeholder="Latitude" name="latitude" #latitude="ngModel"
                  [(ngModel)]="formData.latitude"
+                 pattern="^[-+]?[0-9]{1,7}(\.[0-9]+)?$"
                  [ngClass]="{'warning-input': latitude.invalid && (latitude.dirty || latitude.touched)}" required>
 
         </div>
         <div class="col-sm-4 mt-1">
           <input class="form-control" placeholder="Longitude" name="longitude" #longitude="ngModel"
                  [(ngModel)]="formData.longitude"
+                 pattern="^[-+]?[0-9]{1,7}(\.[0-9]+)?$"
                  [ngClass]="{'warning-input': longitude.invalid && (longitude.dirty || longitude.touched)}" required>
 
         </div>
         <div class="col-sm-4 mt-1">
           <input class="form-control" placeholder="Radius(km)" name="radius" #radius="ngModel"
                  [(ngModel)]="formData.radius"
+                 pattern="^\s*(?=.*[1-9])\d*(?:\.\d*)?\s*$"
                  [ngClass]="{'warning-input': radius.invalid && (radius.dirty || radius.touched)}" required>
 
         </div>
