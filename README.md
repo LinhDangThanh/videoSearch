@@ -1,5 +1,5 @@
 # videoSearch
-Youtube videos search base on location
+Youtube videos search base on location. Support for Authentication and Authorization with JWT. Visualize videos on Google Maps. Live app: http://billinhit.online/video-search/
 # Structure
 The MEAN stack project, backend expressjs in root directory and frontend directory is whole angular code.
 # Developement
