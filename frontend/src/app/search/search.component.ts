@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit {
   pageIndex: number;
   lat: number;
   lng: number;
+  rad: number;
 
   constructor(private videoService: VideoService, private titleService: Title) {
     this.formData = {};
@@ -42,6 +43,7 @@ export class SearchComponent implements OnInit {
 
     this.lat = parseFloat(this.formData.latitude);
     this.lng = parseFloat(this.formData.longitude);
+    this.rad = parseFloat(this.formData.radius) * 1000; // in meter
 
     this.videoService.search(this.formData).pipe(
       finalize(() => {
@@ -76,6 +78,7 @@ export class SearchComponent implements OnInit {
 
     this.lat = parseFloat(this.formData.latitude);
     this.lng = parseFloat(this.formData.longitude);
+    this.rad = parseFloat(this.formData.radius) * 1000; // in meter
 
     this.videoService.search({...this.formData, pageToken}).pipe(
       finalize(() => {
