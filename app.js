@@ -1,6 +1,7 @@
 const express = require('express')
   , mongoose = require('mongoose')
-  , bodyParser = require('body-parser');
+  , bodyParser = require('body-parser')
+  , path = require('path');
 
 const app = express();
 const connection = mongoose.connection;
@@ -25,6 +26,11 @@ connection.once('open', () => {
 
     // register controller
     controller(app);
+
+    app.use(express.static(path.join(__dirname, '/frontend/dist/frontend/')));
+    app.use('*', function(req, res) {
+      res.sendFile(path.join(__dirname, '/frontend/dist/frontend/index.html'));
+    });
 
     console.log('App listening on port: ', PORT);
   });
