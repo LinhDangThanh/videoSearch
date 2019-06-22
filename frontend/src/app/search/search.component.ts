@@ -51,16 +51,16 @@ export class SearchComponent implements OnInit {
       })
     ).subscribe(res => {
 
+      if (res.errors) {
+        return this.errorText = res.errors[0].message;
+      }
+
       if (res.data) {
         this.videoData = res.data;
 
         if (this.videoData.items && this.videoData.items.length) {
           this.sortData();
         }
-      }
-
-      if (res.errors) {
-        this.errorText = res.errors[0].message;
       }
     }, (error: HttpErrorResponse) => {
       console.log(`res: ${error}`);
@@ -70,9 +70,9 @@ export class SearchComponent implements OnInit {
     })
   }
 
-
   getPage(toPage: string, pageToken: string) {
     this.isLoading = true;
+    this.errorText = '';
 
     this.formData = {...this.searchFormData};
 
@@ -86,6 +86,10 @@ export class SearchComponent implements OnInit {
       })
     ).subscribe(res => {
 
+      if (res.errors) {
+        return this.errorText = res.errors[0].message;
+      }
+
       if (res.data) {
         this.videoData = res.data;
 
@@ -96,9 +100,6 @@ export class SearchComponent implements OnInit {
 
       this.pageIndex = toPage === 'prev' ? this.pageIndex - 1 : this.pageIndex + 1;
 
-      if (res.errors) {
-        this.errorText = res.errors[0].message;
-      }
     }, (error: HttpErrorResponse) => {
       console.log(`res: ${error}`);
       if (error && error.statusText) {
