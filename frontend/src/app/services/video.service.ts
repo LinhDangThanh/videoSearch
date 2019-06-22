@@ -10,7 +10,7 @@ export class VideoService {
   baseEndpoint: string;
 
   constructor(private http: HttpClient) {
-    this.baseEndpoint = environment.production ? 'http://billinhit.online/videosearch' : 'http://localhost:8090';
+    this.baseEndpoint = environment.production ? 'http://billinhit.online/video-search' : 'http://localhost:8090';
   }
 
   search(data: any): Observable<any> {

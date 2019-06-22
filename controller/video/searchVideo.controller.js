@@ -11,8 +11,6 @@ const youtube = google.youtube({
   auth: config.youtube.apiKey
 });
 
-let cacheData = null;
-
 module.exports = (req, res) => {
 
   let searchData = {
@@ -25,11 +23,6 @@ module.exports = (req, res) => {
 
   if (req.query.pageToken) {
     searchData.pageToken = req.query.pageToken;
-  }
-
-  if (cacheData) {
-    console.log('from cache data');
-    return res.send(cacheData);
   }
 
   youtube.search.list(searchData, (error, searchResp) => {
@@ -64,8 +57,6 @@ module.exports = (req, res) => {
         if (listResp && listResp.data && listResp.data.items) {
           resp.data.items = listResp.data.items;
         }
-
-        cacheData = resp;
 
         return res.send(resp);
       });
