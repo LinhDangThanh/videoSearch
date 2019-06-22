@@ -16,7 +16,7 @@ export class UserService {
 
   constructor(private http: HttpClient, private tokenService: TokenService,
               private storageService: StorageService) {
-    this.baseEndpoint = environment.production ? '' : 'http://localhost:8086';
+    this.baseEndpoint = environment.production ? 'http://billinhit.online/videosearch' : 'http://localhost:8090';
 
     this.userInfo = new BehaviorSubject(null);
 

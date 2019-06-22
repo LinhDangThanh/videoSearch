@@ -26,7 +26,7 @@ import {tokenGetter} from "./services/token.service";
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:8086'],
+        whitelistedDomains: ['billinhit.online', 'localhost:8090'],
         headerName: 'authorization',
         authScheme: 'Bearer '
       }
