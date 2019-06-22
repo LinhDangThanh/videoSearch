@@ -1,6 +1,8 @@
 import {BrowserModule, Title} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { JwtModule } from '@auth0/angular-jwt'
+import { JwtModule } from '@auth0/angular-jwt';
+import { AgmCoreModule } from '@agm/core';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +31,10 @@ import {tokenGetter} from "./services/token.service";
         authScheme: 'Bearer '
       }
     }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDvm9NF7HWUUXDriFY9r9yZ56Itm6MZmog'
+    }),
+    AgmSnazzyInfoWindowModule,
     AppRoutingModule
   ],
   providers: [Title],

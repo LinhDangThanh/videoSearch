@@ -16,6 +16,8 @@ export class SearchComponent implements OnInit {
   errorText: string;
   videoData: any;
   pageIndex: number;
+  lat: number;
+  lng: number;
 
   constructor(private videoService: VideoService, private titleService: Title) {
     this.formData = {};
@@ -30,12 +32,16 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
+
     this.isLoading = true;
     this.videoData = {};
     this.errorText = '';
     this.pageIndex = 0;
 
     this.searchFormData = {...this.formData};
+
+    this.lat = parseFloat(this.formData.latitude);
+    this.lng = parseFloat(this.formData.longitude);
 
     this.videoService.search(this.formData).pipe(
       finalize(() => {
@@ -45,6 +51,10 @@ export class SearchComponent implements OnInit {
 
       if (res.data) {
         this.videoData = res.data;
+
+        if (this.videoData.items && this.videoData.items.length) {
+          this.sortData();
+        }
       }
 
       if (res.errors) {
@@ -64,6 +74,9 @@ export class SearchComponent implements OnInit {
 
     this.formData = {...this.searchFormData};
 
+    this.lat = parseFloat(this.formData.latitude);
+    this.lng = parseFloat(this.formData.longitude);
+
     this.videoService.search({...this.formData, pageToken}).pipe(
       finalize(() => {
         this.isLoading = false;
@@ -72,6 +85,10 @@ export class SearchComponent implements OnInit {
 
       if (res.data) {
         this.videoData = res.data;
+
+        if (this.videoData.items && this.videoData.items.length) {
+          this.sortData();
+        }
       }
 
       this.pageIndex = toPage === 'prev' ? this.pageIndex - 1 : this.pageIndex + 1;
@@ -98,4 +115,34 @@ export class SearchComponent implements OnInit {
 
     return `${start} - ${end} of ${this.videoData.pageInfo.totalResults}`;
   }
+
+  getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    let deg2rad = (deg) => {
+      return deg * (Math.PI/180)
+    };
+
+    const R = 6371; // Radius of the earth in km
+    const dLat = deg2rad(lat2-lat1);  // deg2rad below
+    const dLon = deg2rad(lon2-lon1);
+    const a =
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const d = R * c; // Distance in km
+    return d;
+  }
+
+  sortData() {
+    this.videoData.items.sort((item1, item2) => {
+      let dis1 = this.getDistanceFromLatLonInKm(this.lat, this.lng,
+        item1.recordingDetails.location.latitude, item1.recordingDetails.location.longitude);
+      let dis2 = this.getDistanceFromLatLonInKm(this.lat, this.lng,
+        item2.recordingDetails.location.latitude, item2.recordingDetails.location.longitude);
+
+      return dis1 - dis2;
+    });
+  }
+
 }

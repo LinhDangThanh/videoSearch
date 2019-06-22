@@ -3,8 +3,13 @@
     border-color: red;
   }
 
+  .map-container {
+    agm-map { height: 500px;}
+  };
+
   .video-detail {
     .video-title {
+      display: block;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -15,4 +20,9 @@
       padding: 5px;
     }
   }
+}
+
+.si-content {
+  max-height: 500px !important;
+  max-width: 500px !important;
 }
