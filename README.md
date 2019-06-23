@@ -1,7 +1,11 @@
 # videoSearch
-Youtube videos search base on location. Support for Authentication and Authorization with JWT. Visualize videos on Google Maps. Live app: http://billinhit.online/video-search/
+Youtube videos search base on location. Support for Authentication and Authorization with JWT is included. Visualize videos on Google Maps with AGM. 
+- Live app: http://billinhit.online/video-search/
 # Structure
-The MEAN stack project, backend expressjs in root directory and frontend directory is whole angular code.
+The MEAN stack project:
+- Root directory: Express server code
+- frontend directory: The whole angular code.
 # Developement
-- Start express server: node app.js. Express server listens on 8090 port
+- Install dependencies (Root and frontend directory): npm install
+- Start express server: node app.js
 - Start Angular dev(CLI) mode: ng serve
