@@ -12,7 +12,7 @@ const config = require('./config')
 
 const PORT = process.env.PORT || config.app.server.port;
 const MONGO_URL = process.env['MONGODB_URI'] ? process.env['MONGODB_URI']
-  : `mongodb://${config.app.db.host}/${config.app.db.database}`;
+  : config.app.db.cloudDb;
 
 connection.on('error', (error) => {
   console.error.bind(console, `Db connection error: ${error}`);

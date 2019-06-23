@@ -9,7 +9,8 @@ module.exports = {
   },
   db: {
     host: '127.0.0.1:27017',
-    database: 'videoSearch'
+    database: 'videoSearch',
+    cloudDb: 'mongodb+srv://videoSearch:videoSearch@cluster0-p7ryl.mongodb.net/test?retryWrites=true&w=majority'
   },
 
   secret: '@videosearch#'
