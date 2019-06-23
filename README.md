@@ -1,6 +1,7 @@
 # videoSearch
 Youtube videos search base on location. Support for Authentication and Authorization with JWT is included. Visualize videos on Google Maps with AGM. 
 - Live app: http://billinhit.online/video-search/
+- Heroku live app: https://intense-ridge-79763.herokuapp.com/
 # Structure
 The MEAN stack project:
 - Root directory: Express server code
