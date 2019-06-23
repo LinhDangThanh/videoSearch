@@ -8,6 +8,6 @@ The MEAN stack project:
 # Developement
 - Install dependencies (Root and frontend directory): `npm install`
 - Start express server: `node app.js`. Express listen on 8090 port (http://localhost:8090)
-- Start Angular dev(CLI) mode: `ng serve`. Dev server 4200 port (http://localhost:4200)
+- Start Angular dev(CLI) mode: `ng serve`. Dev server listen on 4200 port (http://localhost:4200)
 # Build
 - Build angular code (frontend directory): `npm build --prod`
