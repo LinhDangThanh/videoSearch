@@ -60,26 +60,30 @@
                       [fillColor]="'green'">
           </agm-circle>
 
-          <agm-marker *ngFor="let item of videoData.items"
-                      [latitude]="item.recordingDetails.location.latitude"
-                      [longitude]="item.recordingDetails.location.longitude"
-                      [iconUrl]="{
+          <div *ngFor="let item of videoData.items">
+            <agm-marker *ngIf="item.recordingDetails && item.recordingDetails.location"
+                        [latitude]="item.recordingDetails.location.latitude"
+                        [longitude]="item.recordingDetails.location.longitude"
+                        [iconUrl]="{
                 url: item.snippet.thumbnails.default.url,
                 scaledSize: {
                     width: 40,
                     height: 40
                 }
             }">
-            <agm-snazzy-info-window [maxWidth]="300" [maxHeight]="300" [closeWhenOthersOpen]="true">
-              <ng-template>
-                <a target="_blank" href="https://www.youtube.com/watch?v={{item.id}}">
-                  <img class="rounded mx-auto d-block img-fluid" src="{{item.snippet.thumbnails.default.url}}">
-                </a>
-                <a target="_blank" class="video-title mt-2" href="https://www.youtube.com/watch?v={{item.id}}">{{item.snippet.title}}</a>
-                <div class="mt-2 text-secondary">lat, long: {{item.recordingDetails.location.latitude}} , {{item.recordingDetails.location.longitude}}</div>
-              </ng-template>
-            </agm-snazzy-info-window>
-          </agm-marker>
+              <agm-snazzy-info-window [maxWidth]="300" [maxHeight]="300" [closeWhenOthersOpen]="true">
+                <ng-template>
+                  <a target="_blank" href="https://www.youtube.com/watch?v={{item.id}}">
+                    <img class="rounded mx-auto d-block img-fluid" src="{{item.snippet.thumbnails.default.url}}">
+                  </a>
+                  <a target="_blank" class="video-title mt-2" href="https://www.youtube.com/watch?v={{item.id}}">{{item.snippet.title}}</a>
+                  <div class="mt-2 text-secondary" *ngIf="item.recordingDetails && item.recordingDetails.location">
+                    lat, long: {{item.recordingDetails.location.latitude}} , {{item.recordingDetails.location.longitude}}
+                  </div>
+                </ng-template>
+              </agm-snazzy-info-window>
+            </agm-marker>
+          </div>
         </agm-map>
       </div><!--end map-->
 
@@ -93,7 +97,9 @@
             <img class="rounded mx-auto d-block img-fluid" src="{{item.snippet.thumbnails.medium.url}}">
           </a>
           <a target="_blank" class="video-title" href="https://www.youtube.com/watch?v={{item.id}}">{{item.snippet.title}}</a>
-          <div class="text-secondary">{{getDistanceFromLatLonInKm(lat, lng, item.recordingDetails.location.latitude, item.recordingDetails.location.longitude) | number}} km</div>
+          <div class="text-secondary" *ngIf="item.recordingDetails && item.recordingDetails.location">
+            {{getDistanceFromLatLonInKm(lat, lng, item.recordingDetails.location.latitude, item.recordingDetails.location.longitude) | number}} km
+          </div>
         </div>
 
       </div>

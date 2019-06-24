@@ -140,12 +140,16 @@ export class SearchComponent implements OnInit {
 
   sortData() {
     this.videoData.items.sort((item1, item2) => {
-      let dis1 = this.getDistanceFromLatLonInKm(this.lat, this.lng,
-        item1.recordingDetails.location.latitude, item1.recordingDetails.location.longitude);
-      let dis2 = this.getDistanceFromLatLonInKm(this.lat, this.lng,
-        item2.recordingDetails.location.latitude, item2.recordingDetails.location.longitude);
+      if (item1.recordingDetails && item1.recordingDetails.location && item2.recordingDetails && item2.recordingDetails.location) {
+        let dis1 = this.getDistanceFromLatLonInKm(this.lat, this.lng,
+          item1.recordingDetails.location.latitude, item1.recordingDetails.location.longitude);
+        let dis2 = this.getDistanceFromLatLonInKm(this.lat, this.lng,
+          item2.recordingDetails.location.latitude, item2.recordingDetails.location.longitude);
 
-      return dis1 - dis2;
+        return dis1 - dis2;
+      }
+
+      return 0;
     });
   }
 
